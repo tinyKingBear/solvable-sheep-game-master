@@ -288,7 +288,7 @@ const Score: FC<{
                         </button>
                     </div>
                 )}
-                {!pure && <WxQrCode />}
+                {/* {!pure && <WxQrCode />} */}
             </div>
         </div>
     );

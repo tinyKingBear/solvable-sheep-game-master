@@ -18,6 +18,9 @@ import {
 } from '../utils';
 import { Icon, Theme } from '../themes/interface';
 import Score from './Score';
+import HomePage from './HomePage';
+import SettingPage from './Setting';
+import GameOverPage from './GameOver';
 
 interface MySymbol {
     id: string;
@@ -170,6 +173,9 @@ const Game: FC<{
     const [sortedQueue, setSortedQueue] = useState<
         Record<MySymbol['id'], number>
     >({});
+    const [showHome, setShowHome] = useState<boolean>(true);
+    const [showSetting, setShowSetting] = useState<boolean>(false);
+
     const [finished, setFinished] = useState<boolean>(false);
     const [success, setSuccess] = useState<boolean>(false);
     const [animating, setAnimating] = useState<boolean>(false);
@@ -336,6 +342,34 @@ const Game: FC<{
         startTimer(true);
     };
 
+    // 开始游戏
+    const begin = () => {
+        setShowHome(false);
+        restart();
+    };
+
+    // 点击返回
+    const handleClickBack = () => {
+        setShowSetting(true);
+    };
+
+    // 隐藏设置弹出框
+    const hiddenSetting = () => {
+        setShowSetting(false);
+    };
+
+    // 返回首页
+    const goHomePage = () => {
+        setShowSetting(false);
+        setFinished(false);
+        setShowHome(true);
+    };
+
+    // 背景音乐开关
+    const musicSwitch = () => {
+        setBgmOn(!bgmOn);
+    };
+
     // 点击item
     const clickSymbol = async (idx: number) => {
         if (finished || animating) return;
@@ -448,7 +482,6 @@ const Game: FC<{
             setNow(Date.now());
         }, 10);
     };
-
     return (
         <>
             <div className="game">
@@ -483,20 +516,21 @@ const Game: FC<{
                 <button className="flex-grow" onClick={wash}>
                     洗牌
                 </button>
-                <button className="flex-grow" onClick={levelUp}>
+                {/* <button className="flex-grow" onClick={levelUp}>
                     下一关
-                </button>
+                </button> */}
             </div>
-            <div className="level">
+            {/* <div className="level">
                 关卡{level}/{maxLevel} 剩余
                 {scene.filter((i) => i.status === 0).length}
                 <br />
                 得分{score}
                 <br />
                 用时{timestampToUsedTimeString(usedTime)}
-            </div>
+            </div> */}
+            <div className="level">得分{score}</div>
             {/*积分、排行榜*/}
-            <Suspense fallback={<span>rank list</span>}>
+            {/* <Suspense fallback={<span>rank list</span>}>
                 {finished && (
                     <Score
                         level={level}
@@ -507,14 +541,38 @@ const Game: FC<{
                         restartMethod={restart}
                     />
                 )}
+            </Suspense> */}
+            <Suspense fallback={<span>加载游戏结束</span>}>
+                {finished && <GameOverPage handleGoHome={goHomePage} />}
+            </Suspense>
+            {/*首页*/}
+            <Suspense fallback={<span>加载首页</span>}>
+                {showHome && <HomePage restartMethod={begin} />}
+            </Suspense>
+            <Suspense fallback={<span>加载设置</span>}>
+                {showSetting && (
+                    <SettingPage
+                        musicOn={bgmOn}
+                        handleHidden={hiddenSetting}
+                        handleGiveUp={goHomePage}
+                        handleSwitch={musicSwitch}
+                    />
+                )}
             </Suspense>
             {/*bgm*/}
-            {theme.bgm && (
+            {/* {theme.bgm && (
                 <button className="bgm-button" onClick={() => setBgmOn(!bgmOn)}>
                     {bgmOn ? '🔊' : '🔈'}
                     <audio ref={bgmRef} loop src={theme.bgm} />
                 </button>
-            )}
+            )} */}
+            {theme.bgm && <audio ref={bgmRef} loop src={theme.bgm} />}
+            {/* 设置按钮 */}
+            <img
+                className="back-button"
+                src="/src/themes/default/setting.png"
+                onClick={handleClickBack}
+            />
             {/*音效*/}
             {theme.sounds.map((sound) => (
                 <audio

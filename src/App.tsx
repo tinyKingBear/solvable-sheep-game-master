@@ -87,12 +87,15 @@ const App: FC<{ theme: Theme<any> }> = ({ theme: initTheme }) => {
                 initScore={initScore}
                 initTime={initTime}
             />
-            <PersonalInfo />
+            {/* 右上角github地址 */}
+            {/* <PersonalInfo /> */}
             <div className={'flex-spacer'} style={{ minHeight: 52 }} />
-            <Suspense fallback={<span>Loading</span>}>
+            {/* 微信付款码 */}
+            {/* <Suspense fallback={<span>Loading</span>}>
                 {!__DIY__ && !theme.pure && <WxQrCode />}
-            </Suspense>
-            {!__DIY__ && (
+            </Suspense> */}
+
+            {/* {!__DIY__ && (
                 <p
                     style={{
                         textAlign: 'center',
@@ -107,8 +110,8 @@ const App: FC<{ theme: Theme<any> }> = ({ theme: initTheme }) => {
                     <br />
                     <BeiAn />
                 </p>
-            )}
-            {!__DIY__ && !theme.pure && (
+            )} */}
+            {/* {!__DIY__ && !theme.pure && (
                 <>
                     <Info />
                     <ThemeChanger
@@ -124,7 +127,7 @@ const App: FC<{ theme: Theme<any> }> = ({ theme: initTheme }) => {
                         )}
                     </Suspense>
                 </>
-            )}
+            )} */}
         </>
     );
 };

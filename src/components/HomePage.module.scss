@@ -1,0 +1,61 @@
+.modal {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(6px);
+    background-color: rgb(0 0 0 / 20%);
+    top: 0;
+    left: 0;
+    z-index: 10 !important;
+    overflow-y: auto;
+
+    .footer {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+
+        .operation {
+            padding: 30px 10px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            .pk {
+                width: 174px;
+                height: 65px;
+            }
+            .joinGameContainer {
+                position: relative;
+                .joinGame {
+                    width: 200px;
+                    height: 85px;
+                }
+                .gameLeftCount {
+                    color: white;
+                    position: absolute;
+                    left: 0px;
+                    bottom: 5px;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    .text {
+                        border-radius: 5px;
+                        padding: 5px;
+                        background-color: rgb(54, 54, 215);
+                    }
+                }
+            }
+            .friends {
+                width: 66px;
+                height: 66px;
+            }
+            .clothes {
+                width: 66px;
+                height: 66px;
+            }
+        }
+    }
+}

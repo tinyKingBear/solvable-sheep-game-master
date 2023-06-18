@@ -76,11 +76,19 @@
 
 .bgm-button {
     position: fixed;
-    left: 8px;
+    right: 8px;
     top: 8px;
     padding: 4px;
     width: 36px;
     height: 36px;
+    cursor: pointer;
+}
+.back-button {
+    position: fixed;
+    width: 42px;
+    height: 44px;
+    left: 8px;
+    top: 8px;
     cursor: pointer;
 }
 
